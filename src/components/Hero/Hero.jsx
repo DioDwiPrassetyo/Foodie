@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import bgimg from '../../assets/bg/vector1.png';
 import Food1 from '../../assets/food/food1.png';
 import Food2 from '../../assets/food/food2.png';
@@ -26,14 +28,29 @@ const bgImage = {
 };
 
 const Hero = () => {
-  const [ImageId, SetImageId] = React.useState(Food1);
+  const [ImageId, SetImageId] = useState(Food1);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem("currentUser");
+    setIsLoggedIn(!!user);
+  }, []);
+
+  const handleReserve = () => {
+    if (isLoggedIn) {
+      navigate("/reservation");
+    } else {
+      toast.warning("Silakan login terlebih dahulu untuk melakukan reservasi.");
+      navigate("/login");
+    }
+  };
 
   return (
     <div
       className="relative min-h-[400px] sm:min-h-[600px] duration-200 flex justify-center items-center text-white"
       style={{ backgroundColor: '#222831' }}
     >
-      {/* Background image */}
       <div style={bgImage}></div>
 
       <div className="container pb-8 sm:pb-0 relative z-10">
@@ -50,7 +67,10 @@ const Hero = () => {
               quality and taste.
             </p>
             <div>
-              <button className="bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-full hover:scale-105 duration-200">
+              <button
+                onClick={handleReserve}
+                className="bg-gradient-to-r from-primary to-secondary text-white px-6 py-3 rounded-full hover:scale-105 duration-200"
+              >
                 Reserve Now
               </button>
             </div>
@@ -58,7 +78,6 @@ const Hero = () => {
 
           {/* Image Section */}
           <div className="order-1 sm:order-2 min-h-[400px] sm:min-h-[450px] flex justify-center items-center relative px-4">
-            {/* Main Food Image */}
             <div className="flex justify-center items-center h-[320px] sm:h-[480px]">
               <img
                 src={ImageId}
@@ -67,7 +86,6 @@ const Hero = () => {
               />
             </div>
 
-            {/* Thumbnail Images */}
             <div className="absolute bottom-2 sm:bottom-6 left-1/2 sm:left-auto sm:right-0 sm:top-1/2 transform -translate-x-1/2 sm:translate-x-0 sm:-translate-y-1/2 flex gap-3 sm:flex-col bg-[#473C27]/30 rounded-full px-3 py-2">
               {ImageList.map((item) => (
                 <img

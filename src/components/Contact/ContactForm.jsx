@@ -17,7 +17,7 @@ const ContactForm = () => {
       <h2 className="text-3xl font-poppins font-semibold mb-4">
         <span className="text-black">Get In</span> <span className="text-[#bf9a22]">Touch</span>
       </h2>
-      <p className="text-gray-600 mb-6">Enim tempor eget pharetra facilisis sed maecenas adipiscing.</p>
+      <p className="text-gray-600 mb-6">We’d love to hear from you! Fill out the form below and we’ll be in touch soon.</p>
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <input type="text" name="name" placeholder="Name*" className="w-full border rounded-md p-2" required onChange={handleChange} />
@@ -38,12 +38,12 @@ const ContactForm = () => {
         
         <div className="flex items-center gap-3 mt-2">
           <img src="https://cdn-icons-png.flaticon.com/128/126/126509.png" alt="Phone Icon" className="w-6 h-6" />
-          <p className="text-gray-700"><strong>Phone:</strong> +62 812-3456-7890</p>
+          <p className="text-black"><strong>Phone:</strong> +62 812-3456-7890</p>
         </div>
 
         <div className="flex items-center gap-3 mt-2">
           <img src="https://cdn-icons-png.flaticon.com/128/732/732200.png" alt="Email Icon" className="w-6 h-6" />
-          <p className="text-gray-700"><strong>Email:</strong> info@bimbimbox.com</p>
+          <p className="text-black"><strong>Email:</strong> info@bimbimbox.com</p>
         </div>
       </div>
     </div>

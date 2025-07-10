@@ -1,5 +1,8 @@
 import React, { useRef, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css"
+
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
 import Menu from './components/Menu/Menu';
@@ -9,18 +12,22 @@ import Testimonial from './components/Testimonial/Testimonial';
 import Reservation from './components/Reservation/Reservation';
 import ContactPage from './components/Contact/ContactPage';
 import Footer from './components/Footer/Footer';
+import Login from './components/Auth/Login';
+import Register from './components/Auth/Register';
 
 const HomeContent = () => {
   const aboutRef = useRef(null);
   const testimonialRef = useRef(null);
+  const location = useLocation();
 
-  const ScrollToAbout = () => {
-    aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const ScrollToTestimonial = () => {
-    testimonialRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  useEffect(() => {
+    const hash = location.hash;
+    if (hash === '#about') {
+      aboutRef.current?.scrollIntoView({ behavior: 'smooth' });
+    } else if (hash === '#testimonial') {
+      testimonialRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [location]);
 
   return (
     <>
@@ -40,21 +47,21 @@ const App = () => {
   return (
     <Router>
       <div className="bg-[#222831]">
-        {/* Navbar muncul di semua halaman */}
-        <Navbar 
-          onScrollToAbout={() => window.location.hash = '#about'}
-          onScrollToTestimonial={() => window.location.hash = '#testimonial'}
-        />
+        <Navbar />
         
         <Routes>
           <Route path="/" element={<HomeContent />} />
           <Route path="/menu" element={<MenuPage />} />
           <Route path="/reservation" element={<Reservation />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/testimonial" element={<Testimonial />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
         </Routes>
-        
-        {/* Footer muncul di semua halaman */}
+
         <Footer />
+        <ToastContainer position="top-right" autoClose={3000} />
       </div>
     </Router>
   );

@@ -14,15 +14,16 @@ const MenuData = [
     Id: 2,
     Img: Img2,
     Name: 'Kimbap',
-    Description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit explicabo assumenda soluta iure ullam magnam similique hic modi dolorem officia, libero quis perferendis porro nam vero delectus facere sed mollitia.",
+    Description: "Korean seaweed rice rolls filled with vegetables, egg, and meat, served in bite-sized pieces.",
   },
   {
     Id: 3,
     Img: Img3,
     Name: 'Bimbimbap',
-    Description: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit explicabo assumenda soluta iure ullam magnam similique hic modi dolorem officia, libero quis perferendis porro nam vero delectus facere sed mollitia.",
+    Description: "A Korean mixed rice dish with assorted vegetables, meat, egg, and gochujang chili paste.",
   },
-]
+];
+
 
 const Menu = () => {
   return (

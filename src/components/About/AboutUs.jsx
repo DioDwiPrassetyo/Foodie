@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Bg from "../../assets/bg/bg1.jpg";
-import { Link } from 'react-router-dom';
 
 export default function About() {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const restaurantInfo = {
     name: "BIMBIMBOX",
     tagline: "RESTAURANT",
@@ -11,6 +15,20 @@ export default function About() {
       "Bimbimbox is an authentic Korean restaurant that serves the taste of South Korea with a modern touch. We present a delicious culinary experience through various dishes such as bulgogi, bibimbap, tteokbokki, and many more.",
       "With quality ingredients and a warm restaurant atmosphere, we are committed to providing the best service for every visitor. Enjoy the Korean atmosphere right from your dining table only at Bimbimbox Restaurant.",
     ],
+  };
+
+  useEffect(() => {
+    const user = localStorage.getItem("currentUser");
+    setIsLoggedIn(!!user);
+  }, []);
+
+  const handleReserveClick = () => {
+    if (isLoggedIn) {
+      navigate("/reservation");
+    } else {
+      toast.warning("Silakan login terlebih dahulu untuk melakukan reservasi.");
+      navigate("/login");
+    }
   };
 
   return (
@@ -37,7 +55,7 @@ export default function About() {
           </p>
         </div>
 
-        {/* Main content - PARAGRAPH TIDAK DIUBAH */}
+        {/* Main content */}
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-white text-7xl font-bold mb-12">
             {restaurantInfo.title}
@@ -51,30 +69,30 @@ export default function About() {
             </p>
           ))}
 
-          {/* Decorative line */}
           <div className="w-32 h-1 bg-[#d3b485] my-6 mx-auto rounded-full"></div>
 
-          {/* Additional description */}
           <p className="text-white text-lg mt-6 mb-10">
             Our passion is serving unforgettable dishes with a blend of tradition and modern flair. Come taste the experience!
           </p>
 
-          {/* Centered Buttons - PERUBAHAN HANYA PADA TOMBOL VIEW MENU */}
+          {/* ✅ Buttons */}
           <div className="flex justify-center gap-6 mt-4">
-            <Link to="/menu">
-              <button className="rounded-full bg-[#d3b485] px-6 py-3 text-black font-semibold text-lg hover:bg-[#c1a46a] transition-all">
-                View Menu
-              </button>
-            </Link>
-            <Link to="/reservation"> 
-              <button className="rounded-full border border-[#d3b485] px-6 py-3 text-[#d3b485] font-semibold text-lg hover:bg-[#d3b485] hover:text-black transition-all">
-                Reserve Now
-              </button>
-            </Link>
+            <button
+              onClick={() => navigate("/menu")}
+              className="rounded-full bg-[#d3b485] px-6 py-3 text-black font-semibold text-lg hover:bg-[#c1a46a] transition-all"
+            >
+              View Menu
+            </button>
+            <button
+              onClick={handleReserveClick}
+              className="rounded-full border border-[#d3b485] px-6 py-3 text-[#d3b485] font-semibold text-lg hover:bg-[#d3b485] hover:text-black transition-all"
+            >
+              Reserve Now
+            </button>
           </div>
         </div>
 
-        {/* Quote in bottom-right */}
+        {/* Quote */}
         <div className="absolute bottom-10 right-12 text-right max-w-sm">
           <p className="text-[#d3b485] italic text-xl">
             “Good food is the foundation of genuine happiness.”

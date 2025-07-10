@@ -1,24 +1,33 @@
-import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Logo from '../../assets/logo.png';
 import { MdTableRestaurant } from 'react-icons/md';
+import { FiChevronDown } from 'react-icons/fi';
 
-const Navbar = ({ onScrollToAbout, onScrollToTestimonial }) => {
+const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const handleAboutClick = (e) => {
-    if (location.pathname === '/') {
-      e.preventDefault();
-      onScrollToAbout();
-      document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
-    }
+  const [currentUser, setCurrentUser] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("currentUser"));
+    setCurrentUser(user);
+  }, [location]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("currentUser");
+    setCurrentUser(null);
+    navigate("/login");
   };
 
-  const handleTestimonialClick = (e) => {
+  const handleScrollOrNavigate = (section) => (e) => {
+    e.preventDefault();
     if (location.pathname === '/') {
-      e.preventDefault();
-      onScrollToTestimonial();
-      document.getElementById('testimonial')?.scrollIntoView({ behavior: 'smooth' });
+      document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(`/#${section}`);
     }
   };
 
@@ -37,33 +46,68 @@ const Navbar = ({ onScrollToAbout, onScrollToTestimonial }) => {
               <Link to="/menu" className="inline-block py-3 px-3 text-white hover:text-primary">Menu</Link>
             </li>
             <li>
-              <Link 
-                to="#about" 
-                onClick={handleAboutClick}
+              <a 
+                href="#about" 
+                onClick={handleScrollOrNavigate('about')}
                 className="inline-block py-3 px-3 text-white hover:text-primary"
               >
                 About
-              </Link>
+              </a>
             </li>
             <li>
               <Link to="/contact" className="inline-block py-3 px-3 text-white hover:text-primary">Contact</Link>
             </li>
             <li>
-              <Link 
-                to="#testimonial" 
-                onClick={handleTestimonialClick}
+              <a 
+                href="#testimonial" 
+                onClick={handleScrollOrNavigate('testimonial')}
                 className="inline-block py-3 px-3 text-white hover:text-primary"
               >
                 Testimonial
-              </Link>
+              </a>
             </li>
-            <li>
-              <Link to="/reservation">
-                <button className="flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-4 py-2 rounded-full shadow hover:opacity-90 duration-300 transition-all">
-                  Reservation <MdTableRestaurant className='inline-block ml-2' />
-                </button>
-              </Link>
-            </li>
+
+            {currentUser ? (
+              <>
+                <li>
+                  <Link
+                    to="/reservation"
+                    className="inline-flex items-center gap-2 py-2 px-4 bg-green-500 text-white rounded-full hover:bg-green-600 transition"
+                  >
+                    <MdTableRestaurant className="text-lg" />
+                    Reservation
+                  </Link>
+                </li>
+
+                <li className="relative">
+                  <button
+                    onClick={() => setDropdownOpen(!dropdownOpen)}
+                    className="flex items-center gap-2 text-white hover:text-yellow-400 transition"
+                  >
+                    Hi, {currentUser.name} <FiChevronDown />
+                  </button>
+
+                  {dropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md z-50">
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100"
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </li>
+              </>
+            ) : (
+              <li>
+                <Link to="/login">
+                  <button className="flex items-center gap-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-4 py-2 rounded-full shadow hover:opacity-90 duration-300 transition-all">
+                    Login <MdTableRestaurant className="inline-block ml-2" />
+                  </button>
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </div>
