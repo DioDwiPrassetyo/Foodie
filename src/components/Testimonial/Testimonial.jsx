@@ -1,23 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-const testimonialData = [
+const dummyTestimonials = [
   {
-    id: 1,
+    id: "d1",
     name: "Siomaygoreng",
     text: "Enaknyaooooooo",
     img: "https://picsum.photos/seed/1/100/100",
   },
   {
-    id: 2,
+    id: "d2",
     name: "Miegorengkuah",
-    text: "Makanannya Enak , jadi nagih mau bubarin tempatnya",
+    text: "Makanannya Enak, jadi nagih mau bubarin tempatnya",
     img: "https://picsum.photos/seed/2/100/100",
   },
   {
-    id: 3,
+    id: "d3",
     name: "Kurang5Ribu",
     text: "Minumannya pas banget coy rasanya",
     img: "https://picsum.photos/seed/3/100/100",
@@ -25,6 +27,34 @@ const testimonialData = [
 ];
 
 const Testimonial = () => {
+  const navigate = useNavigate();
+  const [dbTestimonials, setDbTestimonials] = useState([]);
+
+  const fetchTestimonials = async () => {
+    try {
+      const res = await axios.get("http://localhost/api/testimonial.php"); // Ambil semua data
+      if (res.data.status === "success") {
+        setDbTestimonials(res.data.data);
+      }
+    } catch (error) {
+      console.error("Gagal mengambil testimonial:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTestimonials();
+  }, []);
+
+  const allTestimonials = [
+    ...dbTestimonials.map((t) => ({
+      id: t.id,
+      name: t.name,
+      text: t.message,
+      img: `https://picsum.photos/seed/${t.id}/100/100`, // Bisa diganti dari DB kalau punya avatar
+    })),
+    ...dummyTestimonials,
+  ];
+
   const settings = {
     dots: true,
     arrows: false,
@@ -41,17 +71,22 @@ const Testimonial = () => {
 
   return (
     <div className="py-16 px-4 bg-[#222831] text-white">
-      <div className="text-center mb-12 max-w-xl mx-auto">
-        <p className="text-sm uppercase text-gray-400 tracking-wide">Testimonial</p>
+      <div className="text-center mb-8 max-w-xl mx-auto">
         <h2 className="text-4xl font-bold mb-2">Testimonial</h2>
-        <p className="text-base text-gray-300">
+        <p className="text-base text-gray-300 mb-4">
           Send us your testimonial about your experience dining at our restaurant. Gamsahabnida!!
         </p>
+        <button
+          onClick={() => navigate("/AddTestimonials")}
+          className="bg-yellow-500 text-black px-4 py-2 rounded hover:bg-yellow-400 transition"
+        >
+          + Add Testimonial
+        </button>
       </div>
 
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto mt-8">
         <Slider {...settings}>
-          {testimonialData.map(({ id, name, text, img }) => (
+          {allTestimonials.map(({ id, name, text, img }) => (
             <div key={id} className="px-4">
               <div className="bg-gray-100 text-black rounded-xl shadow-md p-6 text-center relative min-h-[240px]">
                 <img

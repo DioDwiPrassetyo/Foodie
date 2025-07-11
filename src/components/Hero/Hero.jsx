@@ -41,7 +41,7 @@ const Hero = () => {
     if (isLoggedIn) {
       navigate("/reservation");
     } else {
-      toast.warning("Silakan login terlebih dahulu untuk melakukan reservasi.");
+      toast.warning("Please login first to make a reservation.");
       navigate("/login");
     }
   };
@@ -55,7 +55,6 @@ const Hero = () => {
 
       <div className="container pb-8 sm:pb-0 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2">
-          {/* Text Section */}
           <div className="flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1">
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold">
               BimBimBox Restaurant
@@ -76,7 +75,6 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Image Section */}
           <div className="order-1 sm:order-2 min-h-[400px] sm:min-h-[450px] flex justify-center items-center relative px-4">
             <div className="flex justify-center items-center h-[320px] sm:h-[480px]">
               <img

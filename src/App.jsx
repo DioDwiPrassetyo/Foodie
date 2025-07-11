@@ -2,6 +2,8 @@ import React, { useRef, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css"
+import{ Toaster } from 'react-hot-toast';
+
 
 import Navbar from './components/Navbar/Navbar';
 import Hero from './components/Hero/Hero';
@@ -14,6 +16,10 @@ import ContactPage from './components/Contact/ContactPage';
 import Footer from './components/Footer/Footer';
 import Login from './components/Auth/Login';
 import Register from './components/Auth/Register';
+import Profile from './components/profile/Profile';
+import MyReservation from './components/Reservation/MyReservation';
+import AddTestimonials from './components/Testimonial/AddTestimonials';
+import AllTestimonials from './components/Testimonial/AllTestimonials';
 
 const HomeContent = () => {
   const aboutRef = useRef(null);
@@ -58,10 +64,31 @@ const App = () => {
           <Route path="/testimonial" element={<Testimonial />} />
           <Route path="/login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/MyReservation" element={<MyReservation />} />
+          <Route path="/AddTestimonials" element={<AddTestimonials />} />
+          <Route path="/AllTestimonials" element={<AllTestimonials />} />
         </Routes>
 
-        <Footer />
+        <Toaster
+          position="top-center"
+          toastOptions={{
+          style: {
+            background: '#333',
+            color: '#fff',
+            fontSize: '1rem',
+          },
+          success: {
+            iconTheme: {
+              primary: '#D4AF37',
+              secondary: '#fff',
+            },
+          },
+  }}
+/>
         <ToastContainer position="top-right" autoClose={3000} />
+
+        <Footer />
       </div>
     </Router>
   );

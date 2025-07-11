@@ -2,11 +2,16 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { FaUser, FaEnvelope, FaLock } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaLock, FaPhone } from "react-icons/fa"; // Tambah FaPhone
 
 const Register = () => {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ name: "", email: "", password: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "", // Tambahkan phone di state
+  });
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,7 +19,6 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const toastId = toast.loading("Registering account...");
 
     try {
@@ -37,7 +41,7 @@ const Register = () => {
         });
       }
     } catch (err) {
-      console.warn("Gagal koneksi ke server, fallback ke localStorage");
+      console.warn("Gagal koneksi ke server, fallback ke localStorage", err);
 
       const users = JSON.parse(localStorage.getItem("users")) || [];
       const exists = users.find((u) => u.email === form.email);
@@ -78,6 +82,18 @@ const Register = () => {
               value={form.name}
               onChange={handleChange}
               placeholder="Full Name"
+              required
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400"
+            />
+          </div>
+          <div className="relative">
+            <FaPhone className="absolute left-3 top-3 text-gray-400" />
+            <input
+              type="tel"
+              name="phone"
+              value={form.phone}
+              onChange={handleChange}
+              placeholder="Phone Number"
               required
               className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-400"
             />

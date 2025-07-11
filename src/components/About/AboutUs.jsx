@@ -26,7 +26,7 @@ export default function About() {
     if (isLoggedIn) {
       navigate("/reservation");
     } else {
-      toast.warning("Silakan login terlebih dahulu untuk melakukan reservasi.");
+      toast.warning("Please login first to make a reservation.");
       navigate("/login");
     }
   };
@@ -75,7 +75,7 @@ export default function About() {
             Our passion is serving unforgettable dishes with a blend of tradition and modern flair. Come taste the experience!
           </p>
 
-          {/* ✅ Buttons */}
+          {/* Buttons */}
           <div className="flex justify-center gap-6 mt-4">
             <button
               onClick={() => navigate("/menu")}
@@ -92,7 +92,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* Quote */}
         <div className="absolute bottom-10 right-12 text-right max-w-sm">
           <p className="text-[#d3b485] italic text-xl">
             “Good food is the foundation of genuine happiness.”

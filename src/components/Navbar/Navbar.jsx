@@ -69,6 +69,7 @@ const Navbar = () => {
 
             {currentUser ? (
               <>
+                {/* Reservation Button */}
                 <li>
                   <Link
                     to="/reservation"
@@ -79,6 +80,7 @@ const Navbar = () => {
                   </Link>
                 </li>
 
+                {/* Dropdown User */}
                 <li className="relative">
                   <button
                     onClick={() => setDropdownOpen(!dropdownOpen)}
@@ -88,12 +90,26 @@ const Navbar = () => {
                   </button>
 
                   {dropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md z-50">
+                    <div className="absolute right-0 mt-2 w-44 bg-white text-black rounded shadow-md z-50">
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        👤 Profile
+                      </Link>
+                      <Link
+                        to="/MyReservation"
+                        className="block px-4 py-2 hover:bg-gray-100"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        📅 MyReservation
+                      </Link>
                       <button
                         onClick={handleLogout}
                         className="w-full text-left px-4 py-2 hover:bg-gray-100"
                       >
-                        Logout
+                        🚪 Logout
                       </button>
                     </div>
                   )}

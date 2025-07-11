@@ -21,25 +21,31 @@ const Login = ({ onLoginSuccess = () => {} }) => {
       const res = await axios.post("http://localhost/api/login.php", form);
 
       if (res.data.status === "success") {
+        const user = res.data.user;
+
+        // Simpan user dan waktu login ke localStorage
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        localStorage.setItem("loginTime", new Date().toLocaleString());
+
         toast.update(toastId, {
-          render: "Login berhasil! Selamat datang " + res.data.name,
+          render: "Login successful, Welcome! " + user.name,
           type: "success",
           isLoading: false,
           autoClose: 3000,
         });
-        localStorage.setItem("currentUser", JSON.stringify(res.data));
+
         onLoginSuccess();
         navigate("/");
       } else {
         toast.update(toastId, {
-          render: "Login gagal: " + res.data.message,
+          render: "Login failed: " + res.data.message,
           type: "error",
           isLoading: false,
           autoClose: 3000,
         });
       }
     } catch (err) {
-      console.warn("Koneksi gagal, fallback ke localStorage");
+      console.warn("Connection failed, fallback to localStorage", err);
 
       const users = JSON.parse(localStorage.getItem("users")) || [];
       const found = users.find(
@@ -47,18 +53,21 @@ const Login = ({ onLoginSuccess = () => {} }) => {
       );
 
       if (found) {
+        localStorage.setItem("currentUser", JSON.stringify(found));
+        localStorage.setItem("loginTime", new Date().toLocaleString());
+
         toast.update(toastId, {
-          render: "Login offline berhasil! Selamat datang " + found.name,
+          render: "Offline login successful, Welcome! " + found.name,
           type: "info",
           isLoading: false,
           autoClose: 3000,
         });
-        localStorage.setItem("currentUser", JSON.stringify(found));
+
         onLoginSuccess();
         navigate("/");
       } else {
         toast.update(toastId, {
-          render: "Email atau password salah (offline fallback)",
+          render: "Wrong email or password (offline fallback)",
           type: "error",
           isLoading: false,
           autoClose: 3000,
