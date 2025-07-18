@@ -1,6 +1,6 @@
 kelas TI-2 Semester 4 
 
-Link Video Youtube Project Akhir: 
+Link Video Youtube Project Akhir: https://youtu.be/R6547JDFpZU
 
 Link Tugas Mandiri: 
   1. Dio Dwi Prassetyo (14523047)
