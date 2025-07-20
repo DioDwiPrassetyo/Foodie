@@ -12,8 +12,8 @@ Link Tugas Mandiri:
      - PTM 12 : https://github.com/DioDwiPrassetyo/PTM-12-API-.git
      - PTM 13 : https://github.com/DioDwiPrassetyo/PTM13.git
 
-  3. Nana Suryama (14523033)
-     - 
+  3. Nana Suryana (14523033)
+     - PTM 8  : https://github.com/NanaSuryana14/Deploy-React-PTM-8
      - PTM 9 	: https://github.com/NanaSuryana14/kalkulator-php
      - PTM 10	: https://github.com/NanaSuryana14/PTM10
      - PTM 11	: https://github.com/NanaSuryana14/Pemweb_Pertemuan11
