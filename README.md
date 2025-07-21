@@ -1,4 +1,5 @@
-kelas TI-2 Semester 4 
+Kelas TI-2 Semester 4 
+Kelompok 9
 
 Link Video Youtube Project Akhir: https://youtu.be/R6547JDFpZU
 
@@ -21,5 +22,5 @@ Link Tugas Mandiri:
      - PTM 13	: https://github.com/NanaSuryana14/Pemweb_Pertemuan12-13
 
   4. Moh Rizkiansyah (14523037)
-     - 
+     - PTM 8 : https://github.com/mohrizki27/pemrograman_web_rizki
      - PTM 13 : https://github.com/mohrizki27/rizkiptm13
